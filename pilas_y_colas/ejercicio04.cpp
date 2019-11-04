@@ -29,19 +29,33 @@ class Cola {
   void push(T elemento) { entrada.push(elemento); }
 
   void pop() {
-    volcarEntradaEnSalida();
-    salida.pop();
-    volcarSalidaEnEntrada();
+    if (!entrada.empty()) {
+      volcarEntradaEnSalida();
+      salida.pop();
+      volcarSalidaEnEntrada();
+    } else {
+      throw "Pop en cola vacía";
+    }
   }
 
   T& front() {
-    volcarEntradaEnSalida();
-    T& elemento = salida.top();
-    volcarSalidaEnEntrada();
-    return elemento;
+    if (!entrada.empty()) {
+      volcarEntradaEnSalida();
+      T& elemento = salida.top();
+      volcarSalidaEnEntrada();
+      return elemento;
+    } else {
+      throw "Front en cola vacía";
+    }
   }
 
-  T& back() { return entrada.top(); }
+  T& back() {
+    if (!entrada.empty()) {
+      return entrada.top();
+    } else {
+      throw "Back en cola vacía";
+    }
+  }
 
   bool empty() { return entrada.empty(); }
 
@@ -49,35 +63,39 @@ class Cola {
 };
 
 int main(int argc, char const* argv[]) {
-  queue<int> colaa;
-  Cola<int> cola;
+  try {
+    queue<int> colaa;
+    Cola<int> cola;
 
-  colaa.push(0);
-  colaa.push(5);
-  colaa.push(4);
-  colaa.push(3);
-  cout << "back: " << colaa.back() << endl;
-  cout << "Size antes del pop: " << colaa.size() << endl;
-  colaa.pop();
-  cout << "Size después del pop: " << colaa.size() << endl;
-  while (!colaa.empty()) {
-    cout << colaa.front();
+    colaa.push(0);
+    colaa.push(5);
+    colaa.push(4);
+    colaa.push(3);
+    cout << "back: " << colaa.back() << endl;
+    cout << "Size antes del pop: " << colaa.size() << endl;
     colaa.pop();
-  }
-  cout << "\n**********" << endl;
+    cout << "Size después del pop: " << colaa.size() << endl;
+    while (!colaa.empty()) {
+      cout << colaa.front();
+      colaa.pop();
+    }
+    cout << "\n**********" << endl;
 
-  cola.push(0);
-  cola.push(5);
-  cola.push(4);
-  cola.push(3);
-  cout << "back: " << cola.back() << endl;
-  cout << "Size antes del pop: " << cola.size() << endl;
-  cola.pop();
-  cout << "Size después del pop: " << cola.size() << endl;
-  while (!cola.empty()) {
-    cout << cola.front();
+    cola.push(0);
+    cola.push(5);
+    cola.push(4);
+    cola.push(3);
+    cout << "back: " << cola.back() << endl;
+    cout << "Size antes del pop: " << cola.size() << endl;
     cola.pop();
+    cout << "Size después del pop: " << cola.size() << endl;
+    while (!cola.empty()) {
+      cout << cola.front();
+      cola.pop();
+    }
+    cout << "\n**********" << endl;
+  } catch (const char* msg) {
+    cout << msg << endl;
   }
-  cout << "\n**********" << endl;
   return 0;
 }
