@@ -13,14 +13,12 @@ struct Persona {
     apellidos = a;
     prioridad = p;
   }
+  bool operator<(const Persona& p1) const { return prioridad < p1.prioridad; }
+  bool operator>(const Persona& p1) const { return prioridad > p1.prioridad; }
 };
 
-bool operator<(const Persona& p1, const Persona& p2) {
-  return p1.prioridad < p2.prioridad;
-}
-
 int main(int argc, char const* argv[]) {
-  priority_queue<Persona> colaPersonas;
+  priority_queue<Persona, vector<Persona>, greater<Persona>> colaPersonas;
   Persona p1("N", "N", -2);
   Persona p2("J", "J", 50);
   Persona p3("B", "B", 10);
