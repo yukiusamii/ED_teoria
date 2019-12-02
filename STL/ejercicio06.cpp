@@ -1,26 +1,24 @@
 #include <iostream>
 #include <list>
-#include <set>
 using namespace std;
-int main(int argc, char const *argv[]) {
-  cout << "Holi 6" << endl;
-  list<int> lista;
-  set<int> bolsa;
-  bolsa.insert(1);
-  bolsa.insert(1);
-  bolsa.insert(5);
-  bolsa.insert(10);
-  set<int>::iterator its;
 
-  for (its = bolsa.begin(); its != bolsa.end(); ++its) {
-    cout << *its << endl;
+template <typename T>
+void eliminarElemento(list<T> &l, T elemento) {
+  auto it = l.begin();
+
+  while (it != l.end()) {
+    if (*it == elemento) {
+      it = l.erase(it);
+    } else {
+      ++it;
+    }
   }
-  if (bolsa.find(60) != bolsa.end()) {
-    cout << "HUARRAAAAY!!" << endl;
-  } else {
-    cout << "OOOH" << endl;
-  }
-  list<int>::iterator it, aux;
+}
+
+int main(int argc, char const *argv[]) {
+  list<int>::iterator it;
+  list<int> lista;
+
   lista.push_back(20);
   lista.push_back(50);
   lista.push_back(60);
@@ -29,5 +27,17 @@ int main(int argc, char const *argv[]) {
   lista.push_back(100);
   lista.push_back(30);
   lista.push_back(20);
+
+  cout << "Antes de borrar: " << endl;
+  for (it = lista.begin(); it != lista.end(); ++it) {
+    cout << *it << endl;
+  }
+
+  cout << "***************" << endl;
+  eliminarElemento(lista, 20);
+  cout << "Despues de borrar el 20: " << endl;
+  for (it = lista.begin(); it != lista.end(); ++it) {
+    cout << *it << endl;
+  }
   return 0;
 }

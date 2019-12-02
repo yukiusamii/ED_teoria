@@ -48,6 +48,7 @@ multiDicc apareceXVeces(dicc cont) {
 }
 
 int main(int argc, char const *argv[]) {
+  // Primera parte
   cout << "Escribe el nombre del fichero: " << endl;
   string f;
   getline(cin, f);
@@ -58,14 +59,18 @@ int main(int argc, char const *argv[]) {
     cout << (*it).first << ": " << (*it).second << endl;
   }
 
+  // Segunda parte
   multiDicc inversCont;
   inversCont = apareceXVeces(cont);
+
   cout << "***************************" << endl;
   cout << "Introduce un número: " << endl;
   int n;
   cin >> n;
+
   multiDicc::iterator multIt;
   multIt = inversCont.find(n);
+
   cout << "Las plabras que aparecen " << n << " veces son: " << endl;
   while (multIt != inversCont.end()) {
     cout << (*multIt).second << endl;
