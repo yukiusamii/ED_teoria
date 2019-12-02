@@ -6,6 +6,7 @@ template <typename T>
 void listaInvertida(list<T> &lista) {
   int size = lista.size();
   auto itFront = lista.begin();
+  // Para recorrer desde el final
   auto itBack = lista.rbegin();
 
   for (size_t i = 0; i < size / 2; i++) {

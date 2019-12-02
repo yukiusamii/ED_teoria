@@ -6,6 +6,7 @@ using namespace std;
 template <typename T>
 void eliminarDuplicados(list<T> &l) {
   auto it = l.begin();
+  // Para ir viendo los elementos únicos de la lista
   set<T> bolsa;
   while (it != l.end()) {
     if (bolsa.find((*it)) == bolsa.end()) {

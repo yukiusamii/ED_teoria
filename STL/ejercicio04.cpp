@@ -41,6 +41,7 @@ dicc contadorPalabras(string nombreF) {
 multiDicc apareceXVeces(dicc cont) {
   multiDicc inversCont;
   dicc::iterator it;
+  // Le damos la vuelta a la clave, valor
   for (it = cont.begin(); it != cont.end(); ++it) {
     inversCont.insert(pair<int, string>((*it).second, (*it).first));
   }

@@ -5,6 +5,7 @@ using namespace std;
 
 template <typename T>
 bool contenida(const list<T> &lista, const list<T> &lista2) {
+  // Para ir sacando a memida que encontremos match
   queue<int> cola;
   for (auto it = lista.begin(); it != lista.end(); ++it) {
     cola.push(*it);
@@ -17,7 +18,9 @@ bool contenida(const list<T> &lista, const list<T> &lista2) {
       contenida = true;
     } else if (cola2.front() == *it) {
       cola2.pop();
-    } else {
+    }
+    // Cuando no hay match llenamos la cola de nuevo
+    else {
       cola2 = cola;
     }
   }

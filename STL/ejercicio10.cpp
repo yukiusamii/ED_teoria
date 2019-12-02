@@ -5,6 +5,7 @@ using namespace std;
 
 template <typename T>
 list<T> mezclar(const list<T> &lista, const list<T> &lista2) {
+  // Para ordenar el contenido
   multiset<T> multiBolsa;
   for (auto it = lista.begin(); it != lista.end(); ++it) {
     multiBolsa.insert(*it);

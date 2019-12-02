@@ -23,6 +23,7 @@ list<pair<T, int>> comprimir(const list<T>& lista) {
   lComprimida.push_back(par);
   return lComprimida;
 }
+
 template <typename T>
 list<T> descomprimir(const list<pair<T, int>>& lista) {
   list<T> lDes;
