@@ -2,69 +2,68 @@
 #include <list>
 #include <queue>
 using namespace std;
-int main(int argc, char const *argv[]) {
-  cout << "Holi 12" << endl;
 
-  list<int>::iterator it, it2, it3, aux;
-  list<int> lista, lista2, lista3;
-  lista.push_back(4);
-  lista.push_back(7);
-  lista.push_back(1);
-  lista.push_back(2);
-  lista.push_back(30);
-  lista.push_back(4);
-  lista.push_back(7);
-  lista.push_back(40);
-  lista.push_back(3);
-  lista.push_back(4);
-  lista.push_back(7);
-  lista.push_back(800);
-
-  lista2.push_back(4);
-  lista2.push_back(7);
-  lista2.push_back(800);
-  lista2.push_back(800);
+template <typename T>
+bool contenida(const list<T> &lista, const list<T> &lista2) {
   queue<int> cola;
-
-  for (it = lista2.begin(); it != lista2.end(); ++it) {
+  for (auto it = lista.begin(); it != lista.end(); ++it) {
     cola.push(*it);
   }
 
   queue<int> cola2 = cola;
   bool contenida = false;
-  for (it = lista.begin(); it != lista.end() && !contenida; ++it) {
-    if (cola2.front() == *it) {
-      cola2.pop();
-    } else if (cola2.empty()) {
+  for (auto it = lista2.begin(); it != lista2.end() && !contenida; ++it) {
+    if (cola2.empty()) {
       contenida = true;
+    } else if (cola2.front() == *it) {
+      cola2.pop();
     } else {
       cola2 = cola;
     }
   }
 
   if (cola2.empty()) {
-    cout << "Estáaaa!! OLE OLE!" << endl;
-  } else {
-    cout << "Pues vaya..." << endl;
-  }
-  /*
-  cola2 = cola;
-  cola2.pop();
-  cola2.pop();
-
-  cout << "***** COLA 1 *****" << endl;
-  int size = cola.size();
-  for (size_t i = 0; i < size; i++) {
-    cout << cola.front() << endl;
-    cola.pop();
+    contenida = true;
   }
 
-  cout << "***** COLA 2 *****" << endl;
-  size = cola2.size();
-  for (size_t i = 0; i < size; i++) {
-    cout << cola2.front() << endl;
-    cola2.pop();
+  return contenida;
+}
+
+template <typename T>
+void printLista(const list<T> &lista) {
+  for (auto it = lista.begin(); it != lista.end(); ++it) {
+    cout << *it << endl;
   }
-  */
+}
+int main(int argc, char const *argv[]) {
+  cout << "Holi 12" << endl;
+  list<int> lista, lista2;
+  lista2.push_back(4);
+  lista2.push_back(7);
+  lista2.push_back(1);
+  lista2.push_back(2);
+  lista2.push_back(30);
+  lista2.push_back(4);
+  lista2.push_back(7);
+  lista2.push_back(40);
+  lista2.push_back(3);
+  lista2.push_back(4);
+  lista2.push_back(7);
+  lista2.push_back(800);
+
+  lista.push_back(4);
+  lista.push_back(7);
+  lista.push_back(800);
+  cout << "*******************" << endl;
+  cout << "LISTA 1" << endl;
+  printLista(lista);
+
+  cout << "*******************" << endl;
+  cout << "LISTA 2" << endl;
+  printLista(lista2);
+
+  cout << "*******************" << endl;
+  cout << "¿Está LISTA 1 en LISTA 2?" << endl;
+  cout << contenida(lista, lista2) << endl;
   return 0;
 }
