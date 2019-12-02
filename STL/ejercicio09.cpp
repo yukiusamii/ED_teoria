@@ -7,6 +7,7 @@ void listaInvertida(list<T> &lista) {
   int size = lista.size();
   auto itFront = lista.begin();
   auto itBack = lista.rbegin();
+
   for (size_t i = 0; i < size / 2; i++) {
     int aux = *itFront;
     *itFront = *itBack;
