@@ -2,6 +2,7 @@
 #include <string>
 #include "bintree.h"
 using namespace std;
+
 template <typename T>
 void recorridos(const bintree<T>& arb) {
   cout << endl << "Tamaño: " << arb.size() << endl;
@@ -58,6 +59,32 @@ void nodoProfundo(const bintree<T>& arb, typename bintree<T>::node yo,
   }
 }
 
+template <typename T>
+bool similares(const bintree<T>& A, typename bintree<T>::node a,
+               const bintree<T>& B, typename bintree<T>::node b) {
+  if (a.null() && b.null()) {
+    return true;
+  }
+
+  if ((a.null() && !b.null()) || (b.null() && !a.null())) {
+    return false;
+  }
+
+  if (*a != *b) {
+    return false;
+  }
+
+  if (!similares(A, a.left(), B, b.left())) {
+    return false;
+  }
+
+  if (!similares(A, a.right(), B, b.right())) {
+    return false;
+  }
+
+  return true;
+}
+
 int main(int argc, char const* argv[]) {
   /**
    *
@@ -83,15 +110,39 @@ int main(int argc, char const* argv[]) {
   // LVL 4
   arb.insert_left(arb.root().right().left().left(), "H");
 
-  cout << "****************************\nEl Albol en distintos "
-          "recorridos\n****************************"
-       << endl;
+  ////////////////////////////////////////////////////////
+  bintree<string> arb2("A");
+  // LVL 1
+  arb2.insert_left(arb2.root(), "B");
+  arb2.insert_right(arb2.root(), "E");
 
-  recorridos(arb);
-  cout << "\n\n****************************\nNodo más profundo y su "
-          "profundidad\n****************************"
+  // LVL 2
+  arb2.insert_left(arb2.root().left(), "C");
+  arb2.insert_right(arb2.root().left(), "D");
+  arb2.insert_left(arb2.root().right(), "F");
+  arb2.insert_right(arb2.root().right(), "J");
+
+  // LVL 3
+  arb2.insert_left(arb2.root().right().left(), "G");
+  arb2.insert_right(arb2.root().right().left(), "I");
+
+  // LVL 4
+  arb2.insert_left(arb2.root().right().left().left(), "H");
+
+  cout << "***************************" << endl;
+  cout << ((similares(arb, arb.root(), arb2, arb2.root())) ? "IGUALES"
+                                                           : "DISTINTOS")
        << endl;
-  nodoProfundo(arb, arb.root(), 0);
+  cout << "***************************" << endl;
+  // cout << "****************************\nEl Albol en distintos "
+  //         "recorridos\n****************************"
+  //      << endl;
+
+  // recorridos(arb);
+  // cout << "\n\n****************************\nNodo más profundo y su "
+  //         "profundidad\n****************************"
+  //      << endl;
+  // nodoProfundo(arb, arb.root(), 0);
 
   return 0;
 }

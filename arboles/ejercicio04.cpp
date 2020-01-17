@@ -27,20 +27,7 @@ void recorridos(const bintree<T>& arb) {
   cout << endl;
 }
 
-template <typename T>
-int lvlNode(const bintree<T>& arb, typename bintree<T>::node nodo) {
-  int count = -1;
-  typename bintree<T>::node aux = nodo;
-
-  for (aux; !aux.null(); aux = aux.parent()) {
-    cout << *aux << endl;
-    count++;
-  }
-
-  return count;
-}
-
-void toPosOden(string pre, string in) {
+void toPosOrden(string pre, string in) {
   if (!pre.empty() && !in.empty()) {
     int posRaiz = in.find(pre[0]);
 
@@ -49,62 +36,17 @@ void toPosOden(string pre, string in) {
 
     string izPre = pre.substr(1, izIn.length());
     string drPre = pre.substr(izIn.length() + 1, pre.length());
-    cout << "Iz de " << pre[0] << " [" << izPre << "]" << endl;
-    toPosOden(izPre, izIn);
-    cout << "Dr de " << pre[0] << " [" << drPre << "]" << endl;
-    toPosOden(drPre, drIn);
-    cout << "pre: " << pre << endl;
-    cout << pre[0] << endl;
+
+    toPosOrden(izPre, izIn);
+    toPosOrden(drPre, drIn);
+
+    cout << pre[0] << " ";
   }
 }
+int main(int argc, char const* argv[]) {
+  /* code */
 
-int main() {
-  /**
-   *        5
-   *       /
-   *      22
-   *      /\
-   *     25 125
-   *
-   * **/
-  // bintree<int> arb(5);
-  // arb.insert_left(arb.root(), 22);
-  // bintree<int>::node n = arb.root().left();
-
-  // arb.insert_left(n, 25);
-  // arb.insert_right(n, 125);
-
-  // cout << lvlNode(arb, arb.root().left().left()) << endl;
-  // recorridos(arb);
-
-  // bintree<int> arb2 = arb, aux;
-  // if (arb2 == arb)
-  //   cout << "Iguales" << endl;
-  // else
-  //   cout << "Distintos" << endl;
-
-  // arb2.prune_right(arb2.root().left(), aux);
-  // // *(arb.root().left().right()) = 131;
-  // recorridos(arb2);
-
-  // if (arb2 == arb)
-  //   cout << "Iguales" << endl;
-  // else
-  //   cout << "Distintos" << endl;
-
-  // recorridos(aux);
-
-  // arb.insert_right(arb.root(), arb2);
-
-  // recorridos(arb);
-  // // arb.clear();
-  // aux.assign_subtree(arb, arb.root().left());
-  // recorridos(aux);
-  // aux.replace_subtree(aux.root().right(), arb, arb.root());
-
-  // recorridos(aux);
-  // recorridos(arb);
-
+  // Creación del arbol
   // LVL 0
   bintree<string> arb("G");
 
@@ -127,10 +69,16 @@ int main() {
   // LVL 4
   arb.insert_right(arb.root().right().left().left(), "D");
   arb.insert_left(arb.root().right().right().right(), "H");
-
+  cout << "******************\nArbol\n******************" << endl;
   recorridos(arb);
 
-  toPosOden("GEAIBMCLDFKJH", "IABEGLDCFMKHJ");
+  // Recorrido en PostOrden
+  // 4
+
+  cout << "\n\n******************\nRecorrido en postOrden Según preOrden e "
+          "inOrden\n******************"
+       << endl;
+  toPosOrden("GEAIBMCLDFKJH", "IABEGLDCFMKHJ");
   cout << endl;
   return 0;
 }

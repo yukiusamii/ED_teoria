@@ -1,40 +1,7 @@
-
-
 #include <iostream>
 #include <string>
-#include <vector>
 #include "bintree.h"
 using namespace std;
-
-template <typename T>
-int densidad(const bintree<T>& arb, typename bintree<T>::node yo,
-             int miProf = 0) {
-  static vector<int> produndidades;
-
-  if (!yo.null()) {
-    // Soy hoja si no tengo ni hijo a la derecha ni a la izquierda
-
-    if (yo.left().null() && yo.right().null()) {
-      produndidades.push_back(miProf);
-
-      if (yo.parent().null()) {
-        return 0;
-      }
-
-    } else {
-      densidad(arb, yo.left(), miProf + 1);
-      densidad(arb, yo.right(), miProf + 1);
-
-      if (yo.parent().null()) {
-        int densidad = 0;
-        for (size_t i = 0; i < produndidades.size(); i++) {
-          densidad += produndidades[i];
-        }
-        return densidad;
-      }
-    }
-  }
-}
 
 template <typename T>
 void recorridos(const bintree<T>& arb) {
@@ -60,6 +27,19 @@ void recorridos(const bintree<T>& arb) {
   cout << endl;
 }
 
+template <typename T>
+int lvlNode(const bintree<T>& arb, typename bintree<T>::node nodo) {
+  int count = -1;
+  typename bintree<T>::node aux = nodo;
+
+  for (aux; !aux.null(); aux = aux.parent()) {
+    // cout << *aux << endl;
+    count++;
+  }
+
+  return count;
+}
+
 int main(int argc, char const* argv[]) {
   bintree<string> arb("A");
   // LVL 1
@@ -79,10 +59,19 @@ int main(int argc, char const* argv[]) {
   // LVL 4
   arb.insert_left(arb.root().right().left().left(), "H");
 
+  typename bintree<string>::node a = arb.root();
+  typename bintree<string>::node b = arb.root().left();
+  typename bintree<string>::node c = arb.root().left().left();
+  typename bintree<string>::node g = arb.root().right().left().left();
+  typename bintree<string>::node h = arb.root().right().left().left().left();
   cout << "******************\nArbol\n******************" << endl;
   recorridos(arb);
-  int den = densidad(arb, arb.root());
-  cout << "\n\n******************\nDensidad: " << den << "\n******************"
-       << endl;
+  cout << "\n\nNODO ---> Nivel" << endl;
+  cout << *a << " ---> " << lvlNode(arb, a) << endl;
+  cout << *b << " ---> " << lvlNode(arb, b) << endl;
+  cout << *c << " ---> " << lvlNode(arb, c) << endl;
+  cout << *g << " ---> " << lvlNode(arb, g) << endl;
+  cout << *h << " ---> " << lvlNode(arb, h) << endl;
+
   return 0;
 }
